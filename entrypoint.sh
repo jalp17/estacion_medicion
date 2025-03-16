@@ -3,7 +3,7 @@
 # Generar el archivo de contraseñas si no existe
 if [ ! -f /mosquitto/config/passwd ]; then
     mosquitto_passwd -b /mosquitto/config/passwd fisicos matabuelitas
-    echo "Archivo de contraseñas generado automáticamente para 'usuario'"
+    echo "Archivo de contraseñas generado automáticamente para 'fisicos'"
 fi
 
 # Inicia Mosquitto
