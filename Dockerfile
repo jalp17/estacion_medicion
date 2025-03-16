@@ -1,14 +1,17 @@
 FROM eclipse-mosquitto:latest
-# Copiar el archivo de configuración y el script
+
+# Copiar el archivo de configuración
 COPY mosquitto.conf /mosquitto/config/mosquitto.conf
-COPY entrypoint.sh /entrypoint.sh
 
-# Asegurar que el script tenga permisos ejecutables
-RUN chmod +x /entrypoint.sh
+# Copiar el archivo de contraseñas generado
+COPY passwd /mosquitto/config/passwd
 
-# Configurar el punto de entrada
-ENTRYPOINT ["/entrypoint.sh"]
+# Asegurar que Mosquitto tenga permisos para acceder a los archivos
+RUN chmod 600 /mosquitto/config/passwd
 
+# Exponer puertos necesarios
 EXPOSE 1883
 EXPOSE 9001
+
+# Comando para iniciar Mosquitto
 CMD ["/usr/sbin/mosquitto", "-c", "/mosquitto/config/mosquitto.conf"]
